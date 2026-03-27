@@ -100,7 +100,7 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* Hero Name Row — avatar + name side by side */
+  /* Hero Name Row */
   .hero-name-row {
     display: flex;
     align-items: center;
@@ -492,6 +492,7 @@
     display: flex;
     gap: 12px;
     margin-top: 24px;
+    flex-wrap: wrap;
   }
 
   .social-link {
@@ -609,10 +610,65 @@
     background: linear-gradient(to bottom, var(--accent), transparent);
   }
 
+  /* ── UPDATED TIMELINE ITEM ── */
   .timeline-item {
     position: relative;
-    margin-bottom: 56px;
+    margin-bottom: 72px;
+    /* We use a flex row: left=content, right=logo */
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
   }
+
+  /* Left: all the text */
+  .timeline-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Right: company logo */
+  .company-logo-wrap {
+    flex-shrink: 0;
+    width: 180px;
+    height: 140px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    box-shadow:
+      0 0 30px rgba(127,255,212,0.25),
+      0 0 60px rgba(127,255,212,0.08);
+    animation: floatAvatar 4s ease-in-out infinite;
+    position: relative;
+    background: var(--bg3);
+  }
+
+  /* Second item gets a different colour to match the purple dot */
+  .timeline-item:nth-child(2) .company-logo-wrap {
+    border-color: var(--accent2);
+    box-shadow:
+      0 0 30px rgba(167,139,250,0.25),
+      0 0 60px rgba(167,139,250,0.08);
+    animation: floatAvatar 4s ease-in-out infinite 0.8s;
+  }
+
+  .company-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: contrast(1.05) brightness(1.02);
+  }
+
+  /* Subtle gradient overlay at bottom of logo (same as profile) */
+  .company-logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 55%, rgba(10,10,15,0.45));
+    pointer-events: none;
+  }
+
+  /* ── end UPDATED TIMELINE ITEM ── */
 
   .timeline-dot {
     position: absolute;
@@ -653,7 +709,6 @@
   .timeline-desc {
     color: rgba(232,232,240,0.7);
     font-size: 0.95rem;
-    max-width: 680px;
     line-height: 1.8;
   }
 
@@ -948,6 +1003,8 @@
     .hero-stats { display: none; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     footer { flex-direction: column; gap: 16px; text-align: center; }
+    .timeline-item { flex-direction: column; }
+    .company-logo-wrap { width: 100%; height: 160px; }
   }
 </style>
 </head>
@@ -956,7 +1013,6 @@
 <!-- Nav -->
 <nav>
   <a href="#home" class="nav-logo">
-  <!-- <img src="./image/profile.png" class="nav-avatar" alt="Profile"/> -->
   <span>Data Analyst Portfolio</span>
 </a>
   <ul class="nav-links">
@@ -977,7 +1033,6 @@
     <div class="hero-tag">Available for opportunities</div>
     <h1 class="hero-name">Nguyen Quoc<br><span>Hoang Lan</span></h1>
         <p class="hero-role">Data Analyst Fresher</p>
-        <!-- &amp; Analytics Engineer -->
     <p class="hero-desc">
       Transforming raw data into actionable insights. I specialize in building dashboards, optimizing SQL query and analytical models that drive business decisions.
     </p>
@@ -989,24 +1044,9 @@
 
   <div class="hero-center-col">
     <div class="hero-profile-center">
-      <img src="./image/profile.png" alt="Profile Photo"/>
+      <img src="./image/profile.jpg" alt="Profile Photo"/>
     </div>
   </div>
-
-  <!-- <div class="hero-stats">
-    <div class="stat-item">
-      <div class="stat-num">3+</div>
-      <div class="stat-label">Years Exp.</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">15+</div>
-      <div class="stat-label">Projects</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">5+</div>
-      <div class="stat-label">Certificates</div>
-    </div>
-  </div> -->
 </section>
 
 <!-- About -->
@@ -1018,30 +1058,22 @@
   <div class="about-grid">
     <div class="about-text fade-in">
       <p>
-        I’m a Data Analyst passionate about uncovering the stories hidden in numbers. With hands-on experience in business intelligence, analytics engineering, and statistical analysis, I bridge the gap between raw data and strategic decision-making.
+        I have <b>9 months</b> of practical experience working at <b>Geocomply</b> and <b>NinetyEight</b> as a Data Analyst Intern, where I worked with large-scale transactional and blockchain datasets. I'm strong in writing optimized SQL queries to process high-volume data and frequently use Python for data cleaning, transformation, and exploratory analysis.
       </p>
       <p>
-        I have 9 months of practical experience working at Geocomply and NinetyEight as a Data Analyst Intern, where I worked with large-scale transactional and blockchain datasets. I’m strong in writing optimized SQL queries to process high-volume data and frequently use Python for data cleaning, transformation, and exploratory analysis.
-      </p>
-      <p>
-        Curious, hard-working, and a fast learner, I’m always looking for ways to turn data into meaningful impact.
+        Curious, hard-working, and a fast learner, I'm always looking for ways to turn data into meaningful impact. My future goal is to become an Analytical Engineer.
       </p>
 
       <div class="about-highlights">
         <div class="highlight-card">
           <div class="highlight-icon">📊</div>
           <div class="highlight-title">Domain Expertise</div>
-          <div class="highlight-desc">Geolocation Risk, Fraud Detection, E-commerce, Finance, Blockchain</div>
+          <div class="highlight-desc">E-commerce, Fraud Detection, Geolocation Risk, Finance, Blockchain</div>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">⚡</div>
           <div class="highlight-title">Technical Strength</div>
-          <div class="highlight-desc">SQL, Python, PowerBI</div>
-        </div>
-        <div class="highlight-card">
-          <div class="highlight-icon">🔍</div>
-          <div class="highlight-title">Analytical Mindset</div>
-          <div class="highlight-desc">Problem framing & root cause analysis</div>
+          <div class="highlight-desc">SQL, Python, PowerBI, Excel</div>
         </div>
       </div>
 
@@ -1081,20 +1113,20 @@
     <div class="skill-category">
       <div class="skill-cat-title">Data & BI Tools</div>
       <div class="skill-tags">
-        <span class="skill-tag featured">Power BI</span>
-        <span class="skill-tag featured">Kibana</span>
-        <span class="skill-tag featured">Dune Analytics</span>
-        <span class="skill-tag featured">Google Sheet</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Kibana</span>
+        <span class="skill-tag">Dune Analytics</span>
+        <span class="skill-tag">Google Sheet</span>
+        <span class="skill-tag">Excel</span>
       </div>
     </div>
 
     <div class="skill-category">
       <div class="skill-cat-title">Languages</div>
       <div class="skill-tags">
-        <span class="skill-tag featured">SQL</span>
-        <span class="skill-tag featured">Python</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Python</span>
         <span class="skill-tag">DAX</span>
-        <span class="skill-tag">PySpark</span>
       </div>
     </div>
 
@@ -1105,6 +1137,7 @@
         <span class="skill-tag featured">NumPy</span>
         <span class="skill-tag featured">Matplotlib</span>
         <span class="skill-tag featured">Seaborn</span>
+        <span class="skill-tag featured">Plotly</span>
       </div>
     </div>
 
@@ -1122,21 +1155,20 @@
     <div class="skill-category">
       <div class="skill-cat-title">Machine Learning</div>
       <div class="skill-tags">
-        <span class="skill-tag featured">Linear Regression</span>
-        <span class="skill-tag featured">Logistic Regression</span>
-        <span class="skill-tag featured">Difference-in-Differences (DiD)</span>
-        <span class="skill-tag featured">K-Means</span>
+        <span class="skill-tag">Linear Regression</span>
+        <span class="skill-tag">Logistic Regression</span>
+        <span class="skill-tag">Difference-in-Differences (DiD)</span>
+        <span class="skill-tag">K-Means</span>
       </div>
     </div>
 
-    
     <div class="skill-category">
       <div class="skill-cat-title">AI usage</div>
       <div class="skill-tags">
-        <span class="skill-tag featured">Claude</span>
-        <span class="skill-tag featured">Geminai</span>
-        <span class="skill-tag featured">Cursor</span>
-        <span class="skill-tag featured">ChatGPT</span>
+        <span class="skill-tag">Claude</span>
+        <span class="skill-tag">Geminai</span>
+        <span class="skill-tag">Cursor</span>
+        <span class="skill-tag">ChatGPT</span>
       </div>
     </div>
 
@@ -1151,81 +1183,63 @@
   </div>
   <div class="timeline fade-in">
 
+    <!-- GeoComply -->
     <div class="timeline-item">
       <div class="timeline-dot"></div>
-      <div class="timeline-date">Oct 2025 - Jan 2026</div>
-      <div class="timeline-company">GeoComply Solutions Inc.</div>
-      <div class="timeline-role">Data Analyst Intern</div>
-      <div class="timeline-desc">
-        <ul>
-        <li>
-            Processed and investigated up to 15M transactions per day using SQL, Python, PySpark (Databricks), and Elasticsearch (KQL) to detect anomalies and location spoofing, accelerating fraud monitoring and reducing investigation latency.
-        </li>
-        <li>
-            Engineered Spark SQL pipelines to transform complex nested XML logs into analytics-ready Materialized Views, enabling the migration of BrowserGuard dashboards from Kibana to Databricks.
-        </li>
-        <li>
-            Designed and built end-to-end monitoring dashboards to detect system anomalies, reducing monitoring time by 50% and analysis effort by 60%.
-        </li>
-        <li>
-            Collaborated with cross-functional teams to resolve data anomalies, unparsed fields, and performance bottlenecks, improving overall data quality and pipeline stability.
-        </li>
-        </ul>
+
+      <div class="timeline-body">
+        <div class="timeline-date">Oct 2025 - Jan 2026</div>
+        <div class="timeline-company">GeoComply Solutions Inc.</div>
+        <div class="timeline-role">Data Analyst Intern</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Processed and investigated up to 15M transactions per day using SQL, Python, PySpark (Databricks), and Elasticsearch (KQL) to detect anomalies and location spoofing, accelerating fraud monitoring and reducing investigation latency.</li>
+            <li>Engineered Spark SQL pipelines to transform complex nested XML logs into analytics-ready Materialized Views, enabling the migration of BrowserGuard dashboards from Kibana to Databricks.</li>
+            <li>Designed and built end-to-end monitoring dashboards to detect system anomalies, reducing monitoring time by 50% and analysis effort by 60%.</li>
+            <li>Collaborated with cross-functional teams to resolve data anomalies, unparsed fields, and performance bottlenecks, improving overall data quality and pipeline stability.</li>
+          </ul>
+        </div>
+        <div class="timeline-tags">
+          <span class="t-tag">SQL</span>
+          <span class="t-tag">Python</span>
+          <span class="t-tag">KQL (Elasticsearch)</span>
+          <span class="t-tag">PySpark</span>
+        </div>
       </div>
-      <div class="timeline-tags">
-        <span class="t-tag">SQL</span>
-        <span class="t-tag">Python</span>
-        <span class="t-tag">KQL (Elasticsearch)</span>
-        <span class="t-tag">PySpark</span>
+
+      <div class="company-logo-wrap">
+        <img src="./image/geocomply.png" alt="GeoComply"/>
       </div>
     </div>
 
+    <!-- NinetyEight / C98 -->
     <div class="timeline-item">
       <div class="timeline-dot" style="background: var(--accent2); box-shadow: 0 0 20px var(--accent2);"></div>
-      <div class="timeline-date">April 2025 - Sept 2025</div>
-      <div class="timeline-company">C98 CO., LTD. (NINETY EIGHT)</div>
-      <div class="timeline-role">Data Analyst Intern</div>
-      <div class="timeline-desc">
-        <ul>
-            <li>
-                Transformed complex on-chain events into structured, reusable datasets to support scalable analytics, accelerating ad-hoc insight delivery across teams.
-            </li>
-            <li>
-                Automated API-based blockchain data crawling and reporting workflows using Google Apps Script to eliminate manual updates, reducing reporting effort by 40%.
-            </li>
-            <li>
-                Built Python regression and panel data models to evaluate mid-year performance, delivering data-driven recommendations that guided 2025 strategic planning.
-            </li>
-            <li>
-                Designed 10+ blockchain KPI dashboards to replace fragmented reporting, improving real-time decision-making efficiency by 30%.
-            </li>
-            <li>
-                Standardized and centralized 40,000+ rows of operational and metric data in Google Sheets, improving cross-functional data accessibility and consistency.
-            </li>
-            </ul>
+
+      <div class="timeline-body">
+        <div class="timeline-date">April 2025 - Sept 2025</div>
+        <div class="timeline-company">C98 CO., LTD. (NINETY EIGHT)</div>
+        <div class="timeline-role">Data Analyst Intern</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Transformed complex on-chain events into structured, reusable datasets to support scalable analytics, accelerating ad-hoc insight delivery across teams.</li>
+            <li>Automated API-based blockchain data crawling and reporting workflows using Google Apps Script to eliminate manual updates, reducing reporting effort by 40%.</li>
+            <li>Built Python regression and panel data models to evaluate mid-year performance, delivering data-driven recommendations that guided 2025 strategic planning.</li>
+            <li>Designed 10+ blockchain KPI dashboards to replace fragmented reporting, improving real-time decision-making efficiency by 30%.</li>
+            <li>Standardized and centralized 40,000+ rows of operational and metric data in Google Sheets, improving cross-functional data accessibility and consistency.</li>
+          </ul>
+        </div>
+        <div class="timeline-tags">
+          <span class="t-tag">SQL</span>
+          <span class="t-tag">Google Sheets</span>
+          <span class="t-tag">Dune Analytics</span>
+        </div>
       </div>
-      <div class="timeline-tags">
-        <span class="t-tag">SQL</span>
-        <span class="t-tag">Google Sheets</span>
-        <span class="t-tag">Dune Analytics</span>
+
+      <div class="company-logo-wrap">
+        <img src="./image/c98.png" alt="C98 / NinetyEight"/>
       </div>
     </div>
-
-    <!-- <div class="timeline-item">
-      <div class="timeline-dot" style="background: var(--accent3); box-shadow: 0 0 20px var(--accent3);"></div>
-      <div class="timeline-date">Jan 2022 — May 2022</div>
-      <div class="timeline-company">Company Name C</div>
-      <div class="timeline-role">BI Developer & Trainee</div>
-      <div class="timeline-desc">
-        Built operational reports and scorecards for the finance division using Power BI. Assisted in migrating legacy Excel reports to a centralized BI platform, improving data accuracy and accessibility.
-      </div>
-      <div class="timeline-tags">
-        <span class="t-tag">Power BI</span>
-        <span class="t-tag">Excel</span>
-        <span class="t-tag">DAX</span>
-        <span class="t-tag">SQL Server</span>
-      </div>
-    </div> -->
 
   </div>
 </section>
@@ -1237,6 +1251,18 @@
     <h2 class="section-title">Featured <em>Projects</em></h2>
   </div>
   <div class="projects-grid fade-in">
+
+    <div class="project-card">
+      <div class="project-type">📊 Data Analysis & Business Intelligence</div>
+      <div class="project-title">Maven Fuzzy Factory — Revenue Decline Analysis</div>
+      <span class="stack-tag">Mar, 2026 - Present (on-going)</span>
+      <div class="project-desc">A report investigated the decline in orders and revenue at Maven Fuzzy Factory, an online retailer selling teddy bears.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Power BI</span>
+      </div>
+      <a href="https://github.com/hlnetr21354/ecommerce-analysis" class="project-link">View on GitHub →</a>
+    </div>
 
     <div class="project-card">
       <div class="project-type">📊 Data Analysis & Business Intelligence</div>
@@ -1271,7 +1297,7 @@
       <p><span class="stack-tag">Mar, 2025</span></p>
       <span class="stack-tag">Team Leader</span>
       <span class="stack-tag">Score: 40/50</span>
-      <div class="project-desc">A comprehensive data science project applying statistical analysis, machine learning, and time-series forecasting to financial datasets. The project covers EDA, feature selection, supervised and unsupervised models, and predictive evaluation using both R and Python.</div>
+      <div class="project-desc">A comprehensive data science project applying statistical analysis, machine learning, and time-series forecasting to financial datasets, using both R and Python.</div>
       <div class="project-stack">
         <span class="stack-tag">Python</span>
         <span class="stack-tag">Linear Regression</span>
@@ -1284,8 +1310,8 @@
     <div class="project-card">
       <div class="project-type">🗄️ Database Design / Information Systems</div>
       <div class="project-title">Bus Ticket Booking Management System</div>
-        <p><span class="stack-tag">May, 2024</span></p>
-        <span class="stack-tag">Score: 9.5/10</span>
+      <p><span class="stack-tag">May, 2024</span></p>
+      <span class="stack-tag">Score: 9.5/10</span>
       <div class="project-desc">Designed and implemented a relational database system for a bus ticket booking platform. The project covers business process analysis, ERD and data flow modeling, logical and physical database design, SQL implementation, and complex query development to support booking, payment, and operations management.</div>
       <div class="project-stack">
         <span class="stack-tag">SQL</span>
@@ -1306,19 +1332,6 @@
       <a href="https://github.com/hlnetr21354/Future-Retail-Business-Case-Analysis/tree/main" class="project-link">View on GitHub →</a>
     </div>
 
-    <!-- <div class="project-card">
-      <div class="project-type">🤖 Automation</div>
-      <div class="project-title">Automated YouTube Analytics with AI Agent</div>
-      <div class="project-desc">Python-based agent automating YouTube channel analytics reporting — extracts metrics, generates summaries using LLM, and emails weekly digest reports.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span>
-        <span class="stack-tag">YouTube API</span>
-        <span class="stack-tag">OpenAI</span>
-        <span class="stack-tag">Airflow</span>
-      </div>
-      <a href="#" class="project-link">View on GitHub →</a>
-    </div> -->
-
   </div>
 </section>
 
@@ -1338,13 +1351,6 @@
       <div class="edu-badge">GPA: 8.22 / 10.0</div>
     </div>
 
-    <!-- <div class="edu-card">
-      <div class="edu-year">2022</div>
-      <div class="edu-school">Coursera / Online</div>
-      <div class="edu-degree">Google Data Analytics Professional Certificate</div>
-      <div class="edu-badge">Distinction</div>
-    </div> -->
-
   </div>
 </section>
 
@@ -1354,35 +1360,33 @@
     <span class="section-tag">// 06 — credentials</span>
     <h2 class="section-title">My <em>Certifications &amp; Achievements</em></h2>
   </div>
-  
+
   <h3 class="section-lower-title">Data Related Certificates</h3>
+  <div class="cert-grid fade-in">
 
-    <div class="cert-grid fade-in">
+    <div class="cert-card">
+      <div class="cert-badge">🌟</div>
+      <div class="cert-issuer">Data Camp</div>
+      <div class="cert-name">Power BI Fundamentals</div>
+      <div class="cert-date">Issued: Mar 2026</div>
+      <a href="https://www.datacamp.com/completed/statement-of-accomplishment/track/5949114e636c06172e4acc99c964697a4419cf85" class="project-link">View Certificate →</a>
+    </div>
 
-      <div class="cert-card">
-        <div class="cert-badge">🌟</div>
-        <div class="cert-issuer">Data Camp</div>
-        <div class="cert-name">Power BI Fundamentals</div>
-        <div class="cert-date">Issued: Mar 2026</div>
-        <a href="https://www.datacamp.com/completed/statement-of-accomplishment/track/5949114e636c06172e4acc99c964697a4419cf85" class="project-link">View Certificate →</a>
-      </div>
+    <div class="cert-card">
+      <div class="cert-badge">️🏅</div>
+      <div class="cert-issuer">Data Science Talent Competition 2024</div>
+      <div class="cert-name">Top 10 in Group B</div>
+      <div class="cert-date">Issued: Nov 2024</div>
+      <a href="https://drive.google.com/file/d/1k0y6XyN8V5RD2oByTuy-oMxrZ7UlNtyS/view?usp=sharing" class="project-link">View Certificate →</a>
+    </div>
 
-      <div class="cert-card">
-        <div class="cert-badge">️🏅</div>
-        <div class="cert-issuer">Data Science Talent Competition 2024</div>
-        <div class="cert-name">Top 10 in Group B</div>
-        <div class="cert-date">Issued: Nov 2024</div>
-        <a href="https://drive.google.com/file/d/1k0y6XyN8V5RD2oByTuy-oMxrZ7UlNtyS/view?usp=sharing" class="project-link">View Certificate →</a>
-      </div>
-
-      <div class="cert-card">
-        <div class="cert-badge">📊</div>
-        <div class="cert-issuer">Google</div>
-        <div class="cert-name">Google Data Analytics Professional Certificate</div>
-        <div class="cert-date">Issued: Sep 2024</div>
-        <a href="https://drive.google.com/file/d/16fwtnQGomJZK33bT7MPSefimv91GbvZH/view?usp=sharing" class="project-link">View Certificate →</a>
-      </div>
-
+    <div class="cert-card">
+      <div class="cert-badge">📊</div>
+      <div class="cert-issuer">Google</div>
+      <div class="cert-name">Google Data Analytics Professional Certificate</div>
+      <div class="cert-date">Issued: Sep 2024</div>
+      <a href="https://drive.google.com/file/d/16fwtnQGomJZK33bT7MPSefimv91GbvZH/view?usp=sharing" class="project-link">View Certificate →</a>
+    </div>
 
   </div>
 
@@ -1429,6 +1433,7 @@
       <div class="cert-date">Issued: Oct 2024</div>
       <a href="https://drive.google.com/file/d/1mb_lLidniuWcnUdPPZXTEa8yX1ezVqux/view?usp=sharing" class="project-link">View Certificate →</a>
     </div>
+
   </div>
 </section>
 
@@ -1439,34 +1444,27 @@
 </footer>
 
 <script>
-  // Intersection Observer for fade-in animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Stagger fade-in children
   document.querySelectorAll('.skills-grid, .projects-grid, .cert-grid, .edu-grid').forEach(grid => {
     grid.querySelectorAll(':scope > *').forEach((child, i) => {
       child.style.transitionDelay = `${i * 0.08}s`;
     });
   });
 
-  // Active nav link highlight
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
 
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
-      if (window.scrollY >= section.offsetTop - 200) {
-        current = section.getAttribute('id');
-      }
+      if (window.scrollY >= section.offsetTop - 200) current = section.getAttribute('id');
     });
     navLinks.forEach(link => {
       link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
