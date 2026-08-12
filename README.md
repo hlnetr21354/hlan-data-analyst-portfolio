@@ -39,6 +39,3 @@ I am interested in Product Analytics, Fintech, and OTA platforms, where data is 
 - Strong analytical thinking with practical metrics  
 - Clear communication of insights and actionable recommendations  
 
-## Contact
-- GitHub: [your-github-link]
-- Email: [your-email]
