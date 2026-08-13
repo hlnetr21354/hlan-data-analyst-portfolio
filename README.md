@@ -13,9 +13,6 @@ Live site: https://hlnetr21354.github.io/hlan-data-analyst-portfolio/
 hlan-data-analyst-portfolio/
 ├── index.html      # entire site — markup, CSS, and JS in one file
 ├── image/          # profile photo and company logos
-│   ├── profile.jpg
-│   ├── geocomply.png
-│   └── c98.png
 └── README.md
 ```
 
