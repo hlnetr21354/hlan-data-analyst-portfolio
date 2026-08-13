@@ -3,21 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio | Data Analyst</title>
+<title>Portfolio | Data Analyst & Data Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  /* Applied before first paint so the page never flashes the wrong theme. */
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) { /* localStorage unavailable — fall back to the dark default */ }
+  })();
+</script>
 <style>
+  /* ── Dark theme (default) ── */
   :root {
     --bg: #0a0a0f;
     --bg2: #12121a;
     --bg3: #1a1a28;
+
     --accent: #7fffd4;
     --accent2: #a78bfa;
     --accent3: #f59e0b;
+
     --text: #e8e8f0;
-    --text-muted: #6b6b8a;
+    --text-soft: rgba(232,232,240,0.7);
+    --text-muted: #8686a6;
+
     --border: rgba(127,255,212,0.12);
     --card: rgba(255,255,255,0.03);
-    --glow: rgba(127,255,212,0.15);
+    --card-shadow: none;
+    --nav-bg: rgba(10,10,15,0.7);
+
+    /* text sitting on top of an accent-filled surface */
+    --on-accent: #0a0a0f;
+    --on-accent-muted: rgba(10,10,15,0.7);
+
+    /* accent tints */
+    --accent-soft: rgba(127,255,212,0.08);
+    --accent-softer: rgba(127,255,212,0.05);
+    --accent-border: rgba(127,255,212,0.3);
+    --accent2-soft: rgba(167,139,250,0.1);
+    --accent2-border: rgba(167,139,250,0.25);
+    --accent3-soft: rgba(245,158,11,0.1);
+    --accent3-border: rgba(245,158,11,0.25);
+
+    --tag-bg: rgba(255,255,255,0.04);
+    --tag-border: rgba(255,255,255,0.08);
+
+    /* hero decoration */
+    --grid-line: rgba(127,255,212,0.03);
+    --hero-glow-1: rgba(127,255,212,0.06);
+    --hero-glow-2: rgba(167,139,250,0.08);
+
+    /* neon halos around framed images */
+    --halo-a: 0 0 60px rgba(127,255,212,0.2), 0 0 120px rgba(127,255,212,0.08);
+    --halo-a-sm: 0 0 30px rgba(127,255,212,0.25), 0 0 60px rgba(127,255,212,0.08);
+    --halo-a2-sm: 0 0 30px rgba(167,139,250,0.25), 0 0 60px rgba(167,139,250,0.08);
+    --halo-a3-sm: 0 0 30px rgba(245,158,11,0.25), 0 0 60px rgba(245,158,11,0.08);
+    --dot-glow-a: rgba(127,255,212,0.9);
+    --dot-glow-a2: rgba(167,139,250,0.9);
+    --dot-glow-a3: rgba(245,158,11,0.9);
+    --btn-glow: 0 0 30px rgba(127,255,212,0.3);
+    --btn-glow-hover: 0 0 50px rgba(127,255,212,0.5);
+
+    --img-veil: linear-gradient(to bottom, transparent 60%, rgba(10,10,15,0.4));
+    --hover-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    --noise-opacity: 0.4;
+  }
+
+  /* ── Light theme ── */
+  html[data-theme="light"] {
+    --bg: #fbfbfd;
+    --bg2: #f1f3f7;
+    --bg3: #e6e9f0;
+
+    --accent: #0b7a64;
+    --accent2: #6b46c1;
+    --accent3: #b45309;
+
+    --text: #14141c;
+    --text-soft: rgba(20,20,28,0.74);
+    --text-muted: #5b5b70;
+
+    --border: rgba(20,26,40,0.10);
+    --card: #ffffff;
+    --card-shadow: 0 1px 2px rgba(20,26,40,0.05), 0 6px 18px rgba(20,26,40,0.05);
+    --nav-bg: rgba(251,251,253,0.82);
+
+    --on-accent: #ffffff;
+    --on-accent-muted: rgba(255,255,255,0.85);
+
+    --accent-soft: rgba(11,122,100,0.08);
+    --accent-softer: rgba(11,122,100,0.05);
+    --accent-border: rgba(11,122,100,0.35);
+    --accent2-soft: rgba(107,70,193,0.08);
+    --accent2-border: rgba(107,70,193,0.22);
+    --accent3-soft: rgba(180,83,9,0.08);
+    --accent3-border: rgba(180,83,9,0.22);
+
+    --tag-bg: #f4f6f9;
+    --tag-border: rgba(20,26,40,0.10);
+
+    --grid-line: rgba(20,26,40,0.035);
+    --hero-glow-1: rgba(11,122,100,0.07);
+    --hero-glow-2: rgba(107,70,193,0.07);
+
+    /* soft elevation instead of neon in light mode */
+    --halo-a: 0 10px 40px rgba(11,122,100,0.16), 0 2px 10px rgba(20,26,40,0.08);
+    --halo-a-sm: 0 8px 26px rgba(11,122,100,0.16), 0 2px 8px rgba(20,26,40,0.07);
+    --halo-a2-sm: 0 8px 26px rgba(107,70,193,0.16), 0 2px 8px rgba(20,26,40,0.07);
+    --halo-a3-sm: 0 8px 26px rgba(180,83,9,0.16), 0 2px 8px rgba(20,26,40,0.07);
+    --dot-glow-a: rgba(11,122,100,0.28);
+    --dot-glow-a2: rgba(107,70,193,0.28);
+    --dot-glow-a3: rgba(180,83,9,0.28);
+    --btn-glow: 0 6px 18px rgba(11,122,100,0.25);
+    --btn-glow-hover: 0 10px 26px rgba(11,122,100,0.35);
+
+    --img-veil: linear-gradient(to bottom, transparent 65%, rgba(20,26,40,0.28));
+    --hover-shadow: 0 18px 44px rgba(20,26,40,0.12);
+    --noise-opacity: 0.14;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,6 +136,28 @@
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Theme toggle */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   /* Noise overlay */
@@ -41,7 +168,7 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.4;
+    opacity: var(--noise-opacity);
   }
 
   /* Nav */
@@ -49,12 +176,12 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 20px 60px;
+    padding: 11px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     backdrop-filter: blur(20px);
-    background: rgba(10,10,15,0.7);
+    background: var(--nav-bg);
     border-bottom: 1px solid var(--border);
   }
 
@@ -64,7 +191,7 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent);
-    box-shadow: 0 0 12px rgba(127,255,212,0.4);
+    box-shadow: var(--halo-a-sm);
   }
 
   .nav-logo {
@@ -115,7 +242,7 @@
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid var(--accent);
-    box-shadow: 0 0 40px rgba(127,255,212,0.3), 0 0 80px rgba(127,255,212,0.1);
+    box-shadow: var(--halo-a);
     animation: floatAvatar 4s ease-in-out infinite;
   }
 
@@ -137,11 +264,11 @@
 
   /* Hero */
   #home {
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 120px 60px 80px;
+    padding: 88px 60px 56px;
     position: relative;
     overflow: hidden;
     gap: 40px;
@@ -151,23 +278,23 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 70% 50%, rgba(127,255,212,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(167,139,250,0.08) 0%, transparent 60%);
+      radial-gradient(ellipse 60% 60% at 70% 50%, var(--hero-glow-1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, var(--hero-glow-2) 0%, transparent 60%);
   }
 
   .hero-grid-lines {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(127,255,212,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(127,255,212,0.03) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 480px;
+    max-width: 600px;
     flex-shrink: 0;
   }
 
@@ -176,15 +303,15 @@
     align-items: center;
     gap: 8px;
     padding: 6px 16px;
-    background: rgba(127,255,212,0.08);
-    border: 1px solid var(--border);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
     border-radius: 100px;
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
     color: var(--accent);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 32px;
+    margin-bottom: 22px;
   }
 
   .hero-tag::before {
@@ -203,7 +330,7 @@
   .hero-name {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
     line-height: 1.0;
     margin-bottom: 8px;
     letter-spacing: -0.02em;
@@ -218,19 +345,19 @@
 
   .hero-role {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
     color: var(--text-muted);
     font-weight: 400;
-    margin-bottom: 28px;
+    margin-bottom: 18px;
     letter-spacing: 0.02em;
   }
 
   .hero-desc {
-    font-size: 1.05rem;
-    color: rgba(232,232,240,0.7);
+    font-size: 1.0rem;
+    color: var(--text-soft);
     max-width: 560px;
-    margin-bottom: 48px;
-    line-height: 1.8;
+    margin-bottom: 26px;
+    line-height: 1.7;
   }
 
   .hero-cta {
@@ -245,7 +372,7 @@
     gap: 8px;
     padding: 14px 32px;
     background: var(--accent);
-    color: var(--bg);
+    color: var(--on-accent);
     font-family: 'Syne', sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
@@ -254,12 +381,12 @@
     text-decoration: none;
     border-radius: 4px;
     transition: all 0.3s;
-    box-shadow: 0 0 30px rgba(127,255,212,0.3);
+    box-shadow: var(--btn-glow);
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 50px rgba(127,255,212,0.5);
+    box-shadow: var(--btn-glow-hover);
   }
 
   .btn-secondary {
@@ -284,7 +411,7 @@
   .btn-secondary:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(127,255,212,0.05);
+    background: var(--accent-softer);
   }
 
   .hero-stats {
@@ -302,6 +429,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
+    box-shadow: var(--card-shadow);
     backdrop-filter: blur(10px);
   }
 
@@ -351,8 +479,10 @@
 
   .section-lower-title {
     font-family: 'Syne', sans-serif;
-    font-weight: 300px;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: -0.01em;
     margin-bottom: 25px;
     line-height: 1.1;
   }
@@ -373,12 +503,12 @@
   }
 
   .hero-profile-center {
-    width: 300px;
-    height: 380px;
+    width: 285px;
+    height: 345px;
     border-radius: 16px;
     overflow: hidden;
     border: 2px solid var(--accent);
-    box-shadow: 0 0 60px rgba(127,255,212,0.2), 0 0 120px rgba(127,255,212,0.08);
+    box-shadow: var(--halo-a);
     animation: floatAvatar 4s ease-in-out infinite;
     position: relative;
   }
@@ -395,7 +525,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 60%, rgba(10,10,15,0.4));
+    background: var(--img-veil);
     z-index: 1;
     pointer-events: none;
   }
@@ -415,7 +545,7 @@
   }
 
   .about-text p {
-    color: rgba(232,232,240,0.75);
+    color: var(--text-soft);
     margin-bottom: 20px;
     font-size: 1.0rem;
   }
@@ -432,6 +562,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 8px;
+    box-shadow: var(--card-shadow);
     transition: border-color 0.3s, transform 0.3s;
   }
 
@@ -475,14 +606,14 @@
     font-family: 'Syne', sans-serif;
     font-weight: 800;
     font-size: 6rem;
-    color: var(--bg);
+    color: var(--on-accent);
     line-height: 1;
   }
 
   .about-year-label {
     font-family: 'DM Mono', monospace;
     font-size: 0.75rem;
-    color: rgba(10,10,15,0.7);
+    color: var(--on-accent-muted);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-top: 8px;
@@ -513,7 +644,7 @@
   .social-link:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(127,255,212,0.05);
+    background: var(--accent-softer);
   }
 
   /* Skills */
@@ -530,11 +661,12 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
+    box-shadow: var(--card-shadow);
     transition: border-color 0.3s, transform 0.3s;
   }
 
   .skill-category:hover {
-    border-color: rgba(127,255,212,0.3);
+    border-color: var(--accent-border);
     transform: translateY(-4px);
   }
 
@@ -566,8 +698,8 @@
 
   .skill-tag {
     padding: 6px 14px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
     border-radius: 4px;
     font-family: 'DM Mono', monospace;
     font-size: 0.76rem;
@@ -577,14 +709,8 @@
   }
 
   .skill-tag:hover {
-    background: rgba(127,255,212,0.08);
-    border-color: rgba(127,255,212,0.3);
-    color: var(--accent);
-  }
-
-  .skill-tag.featured {
-    background: rgba(127,255,212,0.1);
-    border-color: rgba(127,255,212,0.3);
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
     color: var(--accent);
   }
 
@@ -634,21 +760,23 @@
     border-radius: 12px;
     overflow: hidden;
     border: 2px solid var(--accent);
-    box-shadow:
-      0 0 30px rgba(127,255,212,0.25),
-      0 0 60px rgba(127,255,212,0.08);
+    box-shadow: var(--halo-a-sm);
     animation: floatAvatar 4s ease-in-out infinite;
     position: relative;
     background: var(--bg3);
   }
 
-  /* Second item gets a different colour to match the purple dot */
-  .timeline-item:nth-child(2) .company-logo-wrap {
+  /* Per-item accent colour, matching each timeline dot */
+  .timeline-item.ti-2 .company-logo-wrap {
     border-color: var(--accent2);
-    box-shadow:
-      0 0 30px rgba(167,139,250,0.25),
-      0 0 60px rgba(167,139,250,0.08);
-    animation: floatAvatar 4s ease-in-out infinite 0.8s;
+    box-shadow: var(--halo-a2-sm);
+    animation-delay: 0.8s;
+  }
+
+  .timeline-item.ti-3 .company-logo-wrap {
+    border-color: var(--accent3);
+    box-shadow: var(--halo-a3-sm);
+    animation-delay: 1.6s;
   }
 
   .company-logo-wrap img {
@@ -664,7 +792,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, transparent 55%, rgba(10,10,15,0.45));
+    background: var(--img-veil);
     pointer-events: none;
   }
 
@@ -678,7 +806,17 @@
     height: 12px;
     background: var(--accent);
     border-radius: 50%;
-    box-shadow: 0 0 20px var(--accent);
+    box-shadow: 0 0 20px var(--dot-glow-a);
+  }
+
+  .timeline-item.ti-2 .timeline-dot {
+    background: var(--accent2);
+    box-shadow: 0 0 20px var(--dot-glow-a2);
+  }
+
+  .timeline-item.ti-3 .timeline-dot {
+    background: var(--accent3);
+    box-shadow: 0 0 20px var(--dot-glow-a3);
   }
 
   .timeline-date {
@@ -707,7 +845,7 @@
   }
 
   .timeline-desc {
-    color: rgba(232,232,240,0.7);
+    color: var(--text-soft);
     font-size: 0.95rem;
     line-height: 1.8;
   }
@@ -721,8 +859,8 @@
 
   .t-tag {
     padding: 4px 12px;
-    background: rgba(167,139,250,0.1);
-    border: 1px solid rgba(167,139,250,0.2);
+    background: var(--accent2-soft);
+    border: 1px solid var(--accent2-border);
     border-radius: 4px;
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
@@ -743,6 +881,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
+    box-shadow: var(--card-shadow);
     transition: all 0.3s;
     cursor: pointer;
     position: relative;
@@ -760,9 +899,9 @@
   }
 
   .project-card:hover {
-    border-color: rgba(127,255,212,0.2);
+    border-color: var(--accent-border);
     transform: translateY(-6px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: var(--hover-shadow);
   }
 
   .project-card:hover::before { opacity: 1; }
@@ -790,7 +929,7 @@
 
   .project-desc {
     font-size: 0.88rem;
-    color: rgba(232,232,240,0.6);
+    color: var(--text-soft);
     line-height: 1.7;
     margin-bottom: 20px;
   }
@@ -803,8 +942,8 @@
 
   .stack-tag {
     padding: 3px 10px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
     border-radius: 3px;
     font-family: 'DM Mono', monospace;
     font-size: 0.68rem;
@@ -844,11 +983,12 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
+    box-shadow: var(--card-shadow);
     transition: all 0.3s;
   }
 
   .edu-card:hover {
-    border-color: rgba(245,158,11,0.3);
+    border-color: var(--accent3-border);
     transform: translateY(-4px);
   }
 
@@ -869,15 +1009,15 @@
 
   .edu-degree {
     font-size: 0.9rem;
-    color: rgba(232,232,240,0.65);
+    color: var(--text-soft);
     margin-bottom: 16px;
   }
 
   .edu-badge {
     display: inline-flex;
     padding: 4px 14px;
-    background: rgba(245,158,11,0.1);
-    border: 1px solid rgba(245,158,11,0.25);
+    background: var(--accent3-soft);
+    border: 1px solid var(--accent3-border);
     border-radius: 100px;
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
@@ -899,15 +1039,16 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
+    box-shadow: var(--card-shadow);
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
   }
 
   .cert-card:hover {
-    border-color: rgba(167,139,250,0.3);
+    border-color: var(--accent2-border);
     transform: translateY(-4px);
-    background: rgba(167,139,250,0.04);
+    box-shadow: var(--hover-shadow);
   }
 
   .cert-issuer {
@@ -1013,7 +1154,7 @@
 <!-- Nav -->
 <nav>
   <a href="#home" class="nav-logo">
-  <span>Data Analyst Portfolio</span>
+  <span>Data Portfolio</span>
 </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
@@ -1023,6 +1164,7 @@
     <li><a href="#education">Education</a></li>
     <li><a href="#certificates">Certs</a></li>
   </ul>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">🌙</button>
 </nav>
 
 <!-- Hero -->
@@ -1032,9 +1174,9 @@
   <div class="hero-content">
     <div class="hero-tag">Available for opportunities</div>
     <h1 class="hero-name">Nguyen Quoc<br><span>Hoang Lan</span></h1>
-        <p class="hero-role">Data Analyst Fresher</p>
+        <p class="hero-role">Data Analyst · Analytics Engineer · Data Engineer · BI Analyst</p>
     <p class="hero-desc">
-      Transforming raw data into actionable insights. I specialize in building dashboards, optimizing SQL query and analytical models that drive business decisions.
+      Data professional with ~9 months of experience in Data Analytics &amp; BI and 2 months building data pipelines as a Product Data Engineer Intern. I specialize in SQL, Python, PySpark/Databricks, and Power BI to turn raw data into reliable pipelines, dashboards, and business decisions.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">View My Work →</a>
@@ -1058,22 +1200,22 @@
   <div class="about-grid">
     <div class="about-text fade-in">
       <p>
-        I have <b>9 months</b> of practical experience working at <b>Geocomply</b> and <b>NinetyEight</b> as a Data Analyst Intern, where I worked with large-scale transactional and blockchain datasets. I'm strong in writing optimized SQL queries to process high-volume data and frequently use Python for data cleaning, transformation, and exploratory analysis.
+        I'm an entry-level data professional with about <b>1 year</b> of hands-on experience across data analytics and data engineering. I spent <b>9 months</b> as a Data Analyst Intern at <b>GeoComply</b> and <b>NinetyEight</b>, working with large-scale transactional and blockchain datasets, and I'm currently <b>2 months</b> into a Product Data Engineer Internship at <b>NAB Innovation Centre Vietnam</b>, building CDC pipelines and medallion-architecture data pipelines on Databricks.
       </p>
       <p>
-        Curious, hard-working, and a fast learner, I'm always looking for ways to turn data into meaningful impact. My future goal is to become an Analytical Engineer.
+        Curious, hard-working, and a fast learner, I'm always looking for ways to turn data into meaningful impact. I'm currently open to <b>Data Analyst</b>, <b>Analytics Engineer</b>, <b>Data Engineer</b>, and <b>BI Analyst</b> roles.
       </p>
 
       <div class="about-highlights">
         <div class="highlight-card">
           <div class="highlight-icon">📊</div>
           <div class="highlight-title">Domain Expertise</div>
-          <div class="highlight-desc">E-commerce, Fraud Detection, Geolocation Risk, Finance, Blockchain</div>
+          <div class="highlight-desc">E-commerce, Fraud Detection, Geolocation Risk, Finance, Blockchain, Banking</div>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">⚡</div>
           <div class="highlight-title">Technical Strength</div>
-          <div class="highlight-desc">SQL, Python, PowerBI, Excel</div>
+          <div class="highlight-desc">SQL, Python, PySpark, Databricks, Power BI</div>
         </div>
       </div>
 
@@ -1091,11 +1233,11 @@
       </div>
       <div style="padding: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 8px;">
         <div style="font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent); margin-bottom: 12px; letter-spacing: 0.1em;">QUICK FACTS</div>
-        <div style="font-size: 0.88rem; color: rgba(232,232,240,0.7); line-height: 2;">
+        <div style="font-size: 0.88rem; color: var(--text-soft); line-height: 2;">
           📍 Ho Chi Minh City, Vietnam<br>
           🎓 Bachelor's in Management Information Systems (E-commerce Track)<br>
-          💼 Open to full-time <br>
-          🌐 English & Vietnamese<br>
+          💼 Open to full-time — Data Analyst / Analytics Engineer / Data Engineer / BI Analyst<br>
+          🌐 English (IELTS 7.0) & Vietnamese (native)<br>
         </div>
       </div>
     </div>
@@ -1111,10 +1253,21 @@
   <div class="skills-grid fade-in">
 
     <div class="skill-category">
+      <div class="skill-cat-title">Data Engineering & Big Data</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PySpark</span>
+        <span class="skill-tag">Databricks</span>
+        <span class="skill-tag">Estuary (CDC)</span>
+        <span class="skill-tag">Data Quality Frameworks</span>
+        <span class="skill-tag">PostgreSQL</span>
+      </div>
+    </div>
+
+    <div class="skill-category">
       <div class="skill-cat-title">Data & BI Tools</div>
       <div class="skill-tags">
         <span class="skill-tag">Power BI</span>
-        <span class="skill-tag">Kibana</span>
+        <span class="skill-tag">Elasticsearch / Kibana</span>
         <span class="skill-tag">Dune Analytics</span>
         <span class="skill-tag">Google Sheet</span>
         <span class="skill-tag">Excel</span>
@@ -1124,20 +1277,23 @@
     <div class="skill-category">
       <div class="skill-cat-title">Languages</div>
       <div class="skill-tags">
-        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">SQL (Joins, CTEs, Window Functions)</span>
         <span class="skill-tag">Python</span>
         <span class="skill-tag">DAX</span>
+        <span class="skill-tag">DuneSQL</span>
+        <span class="skill-tag">KQL</span>
       </div>
     </div>
 
     <div class="skill-category">
       <div class="skill-cat-title">Python Libraries</div>
       <div class="skill-tags">
-        <span class="skill-tag featured">Pandas</span>
-        <span class="skill-tag featured">NumPy</span>
-        <span class="skill-tag featured">Matplotlib</span>
-        <span class="skill-tag featured">Seaborn</span>
-        <span class="skill-tag featured">Plotly</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">Matplotlib</span>
+        <span class="skill-tag">Seaborn</span>
+        <span class="skill-tag">Plotly</span>
+        <span class="skill-tag">pytest</span>
       </div>
     </div>
 
@@ -1145,10 +1301,22 @@
       <div class="skill-cat-title">Dev & Tools</div>
       <div class="skill-tags">
         <span class="skill-tag">Git</span>
+        <span class="skill-tag">Linux / Bash</span>
         <span class="skill-tag">Jupyter</span>
         <span class="skill-tag">VS Code</span>
         <span class="skill-tag">Jira</span>
         <span class="skill-tag">Confluence</span>
+      </div>
+    </div>
+
+    <div class="skill-category">
+      <div class="skill-cat-title">Data Analysis</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Data Cleaning</span>
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">Feature Engineering</span>
+        <span class="skill-tag">Statistical Analysis</span>
+        <span class="skill-tag">A/B Testing</span>
       </div>
     </div>
 
@@ -1166,7 +1334,7 @@
       <div class="skill-cat-title">AI usage</div>
       <div class="skill-tags">
         <span class="skill-tag">Claude</span>
-        <span class="skill-tag">Geminai</span>
+        <span class="skill-tag">Gemini</span>
         <span class="skill-tag">Cursor</span>
         <span class="skill-tag">ChatGPT</span>
       </div>
@@ -1183,8 +1351,36 @@
   </div>
   <div class="timeline fade-in">
 
-    <!-- GeoComply -->
+    <!-- NAB Innovation Centre Vietnam -->
     <div class="timeline-item">
+      <div class="timeline-dot"></div>
+
+      <div class="timeline-body">
+        <div class="timeline-date">July 2026 - Present</div>
+        <div class="timeline-company">NAB Innovation Centre Vietnam</div>
+        <div class="timeline-role">Product Data Engineer Intern</div>
+        <div class="timeline-desc">
+          <ul>
+            <li>Generated reference/lookup tables for document-related data entities on the Banking Application Tracking Project.</li>
+            <li>Gained hands-on exposure to NAB's data architecture and Agile ways of working.</li>
+            <li>Independently built a personal pipeline project mimicking the team's medallion architecture — see Loan Document Trust Pipeline under Projects.</li>
+          </ul>
+        </div>
+        <div class="timeline-tags">
+          <span class="t-tag">PySpark</span>
+          <span class="t-tag">Databricks</span>
+          <span class="t-tag">Delta Lake</span>
+          <span class="t-tag">Unity Catalog</span>
+        </div>
+      </div>
+
+      <div class="company-logo-wrap" style="display:flex; align-items:center; justify-content:center;">
+        <img src="./image/nab.png" alt="NAB"/>
+      </div>
+    </div>
+
+    <!-- GeoComply -->
+    <div class="timeline-item ti-2">
       <div class="timeline-dot"></div>
 
       <div class="timeline-body">
@@ -1213,8 +1409,8 @@
     </div>
 
     <!-- NinetyEight / C98 -->
-    <div class="timeline-item">
-      <div class="timeline-dot" style="background: var(--accent2); box-shadow: 0 0 20px var(--accent2);"></div>
+    <div class="timeline-item ti-3">
+      <div class="timeline-dot"></div>
 
       <div class="timeline-body">
         <div class="timeline-date">April 2025 - Sept 2025</div>
@@ -1251,6 +1447,23 @@
     <h2 class="section-title">Featured <em>Projects</em></h2>
   </div>
   <div class="projects-grid fade-in">
+
+    <div class="project-card">
+      <div class="project-type">🧱 Data Engineering / Databricks</div>
+      <div class="project-title">Loan Document Trust Pipeline — Databricks Data Engineering Project</div>
+      <span class="stack-tag">Jul, 2026</span>
+      <div class="project-desc">Built a CDC-based data pipeline on Databricks to ingest and govern loan document-verification data for AI and analytics-ready use.</div>
+      <div class="project-stack">
+        <span class="stack-tag">PySpark</span>
+        <span class="stack-tag">Databricks Lakeflow</span>
+        <span class="stack-tag">Delta Lake</span>
+        <span class="stack-tag">Unity Catalog</span>
+        <span class="stack-tag">PostgreSQL (Neon)</span>
+        <span class="stack-tag">Estuary</span>
+        <span class="stack-tag">Faker</span>
+      </div>
+      <a href="https://github.com/hlnetr21354/document_dataflow" class="project-link">View on GitHub →</a>
+    </div>
 
     <div class="project-card">
       <div class="project-type">📊 Data Analysis & Business Intelligence</div>
@@ -1365,6 +1578,30 @@
   <div class="cert-grid fade-in">
 
     <div class="cert-card">
+      <div class="cert-badge">🧱</div>
+      <div class="cert-issuer">Databricks</div>
+      <div class="cert-name">Build Data Pipelines with Lakeflow Spark Declarative Pipelines — Knowledge Badge</div>
+      <div class="cert-date">Issued: Aug 2026</div>
+      <a href="https://credentials.databricks.com/75eb0613-1d5d-4b92-a5ae-2ee3ba120e49#acc.HtkZlcbL" class="project-link">View Certificate →</a>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge">🔗</div>
+      <div class="cert-issuer">Databricks</div>
+      <div class="cert-name">Data Ingestion with Lakeflow Connect — Knowledge Badge</div>
+      <div class="cert-date">Issued: Aug 2026</div>
+      <a href="https://credentials.databricks.com/d080ec40-0ac9-40bf-a64a-0602e87b1607#acc.c3SlfHMy" class="project-link">View Certificate →</a>
+    </div>
+
+    <div class="cert-card">
+      <div class="cert-badge">📈</div>
+      <div class="cert-issuer">The Future Analyst</div>
+      <div class="cert-name">Master Analytical Thinking & Data Analysis with Power BI (Phase 1)</div>
+      <div class="cert-date">Issued: 2026</div>
+      <a href="https://drive.google.com/file/d/1JnTWhw7qxeeS4lQ78-CfgEcQ1APtOVFt/view" class="project-link">View Certificate →</a>
+    </div>
+
+    <div class="cert-card">
       <div class="cert-badge">🌟</div>
       <div class="cert-issuer">Data Camp</div>
       <div class="cert-name">Power BI Fundamentals</div>
@@ -1444,6 +1681,26 @@
 </footer>
 
 <script>
+  // The theme itself is set in <head>; here we only sync the icon and wire the button.
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  function syncIcon() {
+    const isLight = root.getAttribute('data-theme') === 'light';
+    themeToggle.textContent = isLight ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+
+  syncIcon();
+
+  themeToggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    if (next === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    try { localStorage.setItem('theme', next); } catch (e) { /* ignore */ }
+    syncIcon();
+  });
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');

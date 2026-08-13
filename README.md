@@ -1,41 +1,61 @@
-# hlan-data-analyst-portfolio
-Data Analyst Portfolio
+# Nguyen Quoc Hoang Lan — Data Portfolio
 
-# Data Analyst Portfolio
+Single-page personal portfolio site for **Nguyen Quoc Hoang Lan**, an entry-level data professional
+with ~9 months of experience in Data Analytics & BI and hands-on exposure to data engineering
+(PySpark, Databricks, CDC pipelines). Currently open to **Data Analyst**, **Data Engineer**,
+**Analytical Engineer**, and **BI Analyst** roles.
 
-## About Me
-I am a Data Analyst with a background in E-commerce and data analysis.  
-I am interested in Product Analytics, Fintech, and OTA platforms, where data is used to drive business decisions and improve user experience.
+Live site: https://hlnetr21354.github.io/hlan-data-analyst-portfolio/
 
-## Skills
-- SQL (Data querying, joins, aggregations)
-- Python (Pandas, NumPy, basic data visualization)
-- Power BI (Dashboarding, KPI tracking)
-- Data Analysis (Funnel analysis, cohort analysis, user behavior analysis)
-- Business Metrics & Insights
+## Structure
 
-## Projects
+```
+hlan-data-analyst-portfolio/
+├── index.html      # entire site — markup, CSS, and JS in one file
+├── image/          # profile photo and company logos
+│   ├── profile.jpg
+│   ├── geocomply.png
+│   └── c98.png
+└── README.md
+```
 
-### 1. Train Ticket Booking Funnel Analysis
-**Tools:** SQL, Power BI  
-- Analyzed the booking funnel to identify user drop-off points  
-- Evaluated performance by device type, route, and time  
-- Provided data-driven recommendations to improve conversion rate and revenue  
+The site is intentionally a single static HTML file (no build step, no framework) — all styles are
+in a `<style>` block and all behavior in a `<script>` block at the bottom of `index.html`. It's
+deployed as-is via GitHub Pages.
 
-### 2. User Behavior Analysis (E-commerce)
-**Tools:** Python (Pandas, Matplotlib)  
-- Explored user sessions and purchasing behavior  
-- Conducted retention and cohort analysis  
-- Identified key factors affecting repeat purchases  
+## Sections
 
-### 3. SQL Case Studies
-**Tools:** SQL  
-- Wrote analytical SQL queries to answer business questions  
-- Calculated key metrics such as conversion rate, revenue, and cancellation rate  
-- Focused on translating data results into business insights  
+- **Hero** — name, target roles, short pitch
+- **About** — background summary and quick facts
+- **Skills** — grouped by Data Engineering, BI Tools, Languages, Python Libraries, Dev Tools, Data
+  Analysis, Machine Learning, and AI usage
+- **Experience** — timeline of internships (NAB Innovation Centre Vietnam, GeoComply, C98/NinetyEight)
+- **Projects** — featured data engineering, analytics, and BI projects
+- **Education** — degree and coursework
+- **Certificates** — data-related and other certifications
 
-## What This Portfolio Shows
-- Ability to define business questions from product problems  
-- Strong analytical thinking with practical metrics  
-- Clear communication of insights and actionable recommendations  
+## Features
 
+- Scroll-triggered fade-in animations via `IntersectionObserver`
+- Active nav-link highlighting on scroll
+- Dark/light mode toggle (top-right of the nav bar), persisted in `localStorage` and defaulting to
+  the visitor's OS color-scheme preference on first visit. A small inline script in `<head>` applies
+  the saved theme before first paint so the page never flashes the wrong colors on load.
+
+## Updating content
+
+Everything lives in `index.html`:
+- Theme colors are defined once as CSS custom properties under `:root` (dark) and
+  `html[data-theme="light"]` (light) — update a color there and it propagates everywhere. The rest
+  of the stylesheet references only those tokens (never a raw hex or `rgba`), which is what keeps
+  both themes readable; add new colors as tokens in *both* blocks rather than inline.
+- Each section (`#about`, `#skills`, `#experience`, `#projects`, `#education`, `#certificates`) is a
+  self-contained block of cards/items — copy an existing card and edit its text to add new content.
+
+## Running locally
+
+No build tools required — just open `index.html` in a browser, or serve the folder:
+
+```bash
+npx serve .
+```
