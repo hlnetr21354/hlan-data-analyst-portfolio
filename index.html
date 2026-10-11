@@ -550,6 +550,12 @@
     font-size: 1.0rem;
   }
 
+  .about-text b,
+  .about-text strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
   .about-highlights {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1111,6 +1117,38 @@
     letter-spacing: 0.05em;
   }
 
+  .footer-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .footer-views {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  .footer-view-count {
+    color: var(--accent);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .footer-views.is-unavailable {
+    opacity: 0.6;
+  }
+
   /* Divider line */
   .divider {
     height: 1px;
@@ -1144,6 +1182,7 @@
     .hero-stats { display: none; }
     .about-grid { grid-template-columns: 1fr; gap: 40px; }
     footer { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-meta { justify-content: center; }
     .timeline-item { flex-direction: column; }
     .company-logo-wrap { width: 100%; height: 160px; }
   }
@@ -1707,7 +1746,14 @@
 <!-- Footer -->
 <footer>
   <div class="footer-logo">Nguyen Quoc Hoang Lan.</div>
-  <div class="footer-copy">© 2026 — Built with ❤️ and data</div>
+  <div class="footer-meta">
+    <div class="footer-views" id="portfolio-view-counter" aria-label="Portfolio page views" aria-live="polite">
+      <span aria-hidden="true">👁</span>
+      <span class="footer-view-count" id="portfolio-view-count">—</span>
+      <span>views</span>
+    </div>
+    <div class="footer-copy">© 2026 — Built with ❤️ and data</div>
+  </div>
 </footer>
 
 <script>
@@ -1744,6 +1790,39 @@
       child.style.transitionDelay = `${i * 0.08}s`;
     });
   });
+
+  async function updatePortfolioViewCount() {
+    const countElement = document.getElementById('portfolio-view-count');
+    const counterElement = document.getElementById('portfolio-view-counter');
+    const isLocalPreview = ['', 'localhost', '127.0.0.1'].includes(window.location.hostname);
+    const endpoint = 'https://counterapi.com/api/hlnetr21354.github.io/view/hlan-data-analyst-portfolio';
+    const url = isLocalPreview ? `${endpoint}?readOnly=true` : endpoint;
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 5000);
+
+    try {
+      const response = await fetch(url, {
+        cache: 'no-store',
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer',
+        signal: controller.signal
+      });
+      if (!response.ok) throw new Error(`Counter API returned ${response.status}`);
+
+      const data = await response.json();
+      const count = Number(data.value);
+      if (!Number.isFinite(count)) throw new Error('Counter API returned an invalid value');
+
+      countElement.textContent = new Intl.NumberFormat('en-US').format(count);
+    } catch (error) {
+      counterElement.classList.add('is-unavailable');
+      counterElement.title = 'View counter is temporarily unavailable';
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  }
+
+  updatePortfolioViewCount();
 
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
